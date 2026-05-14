@@ -39,6 +39,9 @@ app.get("/listings/:id", async(req, res)=>{
   res.render("listings/show.ejs", {listing});
 })
 
+app.get("/listings/new", (req, res)=>{
+  res.render("listings/new.ejs");
+});
 
 
 
