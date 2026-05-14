@@ -4,10 +4,13 @@ import dotenv from 'dotenv';
 import Listing from './models/listing.js';
 import ejs from 'ejs';
 
+import path from 'path';
 
 const app = express();
 
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(path.resolve(), 'public'))); 
+app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 async function main() {
@@ -30,6 +33,39 @@ app.get("/listings",async (req, res)=>{
   res.render("listings/index.ejs", {allListings});
 
 })
+app.get("/listings/:id", async(req, res)=>{
+  let {id}= req.params; 
+  const listing = await Listing.findById(id); 
+  res.render("listings/show.ejs", {listing});
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: '✨ AirDox is breathing',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    memory: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + 'MB'
+  });
+});
+
 
 
 

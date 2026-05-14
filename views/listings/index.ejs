@@ -7,6 +7,12 @@
 </head>
 <body>
   <h1>ALl Listings</h1>
-  
+  <ul>
+  <% for(const listing of allListings) { %>
+    
+    <li><a href="/listings/<%=listing._id %>"><%=listing.title%></a></li>
+  <% } %>
+</ul>
 </body>
 </html>
+
