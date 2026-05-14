@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Listing from './models/listing.js';
 import ejs from 'ejs';
-import methodOverride from 'method-override';
 
+import methodOverride from 'method-override';
 import path from 'path';
 
 const app = express();
@@ -63,6 +63,12 @@ app.put("/listings/:id", async (req, res)=>{
   await Listing.findByIdAndUpdate(id, {...req.body.listing});
   res.redirect(`/listings/${id}`);
 });
+app.delete("/listings/:id", async (req, res)=>{
+  let {id} = req.params;
+  await Listing.findByIdAndDelete(id);
+  res.redirect("/listings");
+});
+
 
 app.get('/api/health', (req, res) => {
   res.json({
@@ -73,6 +79,9 @@ app.get('/api/health', (req, res) => {
     memory: Math.round(process.memoryUsage().heapUsed / 1024 / 1024) + 'MB'
   });
 });
+
+
+
 
 
 
