@@ -1,34 +1,37 @@
-import {mongo, mongoose} from 'mongoose';
+import mongoose from 'mongoose';
 
-const listingSchema = new mongoose.Schema({
+let listingSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
+
   description: {
     type: String,
     required: true
   },
-  image: {
-    type: String,
-    required: true,
-    set:(v)=>{
-     v===''? "https://tinyurl.com/5djccv34":v
-    }
-  },
+
+ image: {
+  type: String,
+  default: 'https://tinyurl.com/5djccv34'
+},
+
   price: {
     type: Number,
     required: true
   },
+
   location: {
     type: String,
     required: true
   },
+
   country: {
     type: String,
     required: true
-  },
+  }
 });
 
-const Listing = mongoose.model('Listing', listingSchema); 
-module.exports = Listing;
+const Listing = mongoose.model('Listing', listingSchema);
+
+export default Listing;

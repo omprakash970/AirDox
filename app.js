@@ -1,38 +1,41 @@
-const express = require('express'); 
-const app = express(); 
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const Listing = require('./models/listing');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import Listing from './models/listing.js';
+
+const app = express();
+
 dotenv.config();
 
-main()
-.then(()=>{
-  console.log('Connected to MongoDB');
-}).catch(err=>{
-  console.error('Failed to connect to MongoDB', err);
-}) 
-
 async function main() {
-  await mongoose.connect(process.env.MONGO_URL)
+  await mongoose.connect(process.env.MONGO_URL);
 }
-app.get('/testListing',async (req, res)=>{
-  let sampleListing = new Listing({
-    title:'My new Villa', 
-    description:'A beautiful villa with a pool and a garden',
-    price: 500000,
-    location: 'Goa Beach', 
-    country: 'India'
 
+main()
+  .then(() => {
+    console.log('Connected to MongoDB');
   })
-await sampleListing.save()
-res.send('successfully added a new listing to the database')
-})
+  .catch((err) => {
+    console.log(err);
+  });
 
+app.get('/testListing', async (req, res) => {
 
+  let sampleListing = new Listing({
+    title: 'Oppie Villa ',
+    description: 'A will with sluts and bitches',
+    image:'funck you',
+    price: 20000,
+    location: 'Texas',
+    country: 'USA'
+  });
 
+  await sampleListing.save();
 
+  res.send('Saved Successfully');
+});
 
-app.listen(process.env.PORT, ()=>{
-    console.log(`Server is running on port ${process.env.PORT}`);
-    console.log('Running on http://localhost:' + process.env.PORT);
-})
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+  console.log(`Test the listing at http://localhost:${process.env.PORT}/testListing`);
+});
