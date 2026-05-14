@@ -12,10 +12,12 @@ import path from 'path';
 const app = express();
 
 app.set('view engine', 'ejs');
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(path.resolve(), 'public')));
+app.set('views', path.join(path.resolve(), 'views'));
 app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.use('ejs', ejsMate);
 dotenv.config();
 
 async function main() {
