@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import Listing from './models/listing.js';
 import ejs from 'ejs';
 
+import ejsMate from 'ejs-mate'; 
+
 import methodOverride from 'method-override';
 import path from 'path';
 
@@ -13,6 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use('ejs', ejsMate);
 dotenv.config();
 
 async function main() {
