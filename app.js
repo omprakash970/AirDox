@@ -3,14 +3,16 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Listing from './models/listing.js';
 import ejs from 'ejs';
+import methodOverride from 'method-override';
 
 import path from 'path';
 
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(path.resolve(), 'public'))); 
+app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 dotenv.config();
 
 async function main() {
@@ -48,6 +50,18 @@ app.post("/listings", async (req, res)=>{
   let listing = req.body.listing;
   await Listing.create(listing);
   res.redirect("/listings");
+});
+
+app.get("/listings/:id/edit", async (req, res)=>{
+  let {id} = req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/edit.ejs", {listing});
+});
+
+app.put("/listings/:id", async (req, res)=>{
+  let {id} = req.params;
+  await Listing.findByIdAndUpdate(id, {...req.body.listing});
+  res.redirect(`/listings/${id}`);
 });
 
 app.get('/api/health', (req, res) => {

@@ -12,8 +12,11 @@
   </form>
   <ul>
   <% for(const listing of allListings) { %>
-    
-    <li><a href="/listings/<%=listing._id %>"><%=listing.title%></a></li>
+
+    <li>
+      <a href="/listings/<%=listing._id %>"><%=listing.title%></a>
+      <a href="/listings/<%=listing._id %>/edit">Edit</a>
+    </li>
   <% } %>
 </ul>
 </body>
