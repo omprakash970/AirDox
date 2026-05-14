@@ -1,22 +1,49 @@
-
-<%layout('layouts/boilerplate')%>
+<% layout('layouts/boilerplate') %>
 
 <body>
-  <h1>ALl Listings</h1>
-  <form action="/listings/new" method="post">
+  <h1>All Listings</h1>
+
+  <form action="/listings/new" method="GET">
     <button type="submit">Create New Listing</button>
   </form>
-  <ul>
-  <% for(const listing of allListings) { %>
 
-    <li>
-      <a href="/listings/<%=listing._id %>"><%=listing.title%></a>
-   <form action="/listings/<%=listing._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete</button>
-      </form>
-      <a href="/listings/<%=listing._id %>/edit">Edit</a>
-    </li>
-  <% } %>
-</ul>
+  <div class="row">
+    <% for(const listing of allListings) { %>
+
+      <div class="card" style="width: 18rem; margin: 1rem;">
+        <img 
+          class="card-img-top" 
+          src="<%= listing.image %>" 
+          alt="Listing image"
+        >
+
+        <div class="card-body">
+          <h5 class="card-title"><%= listing.title %></h5>
+
+          <p class="card-text">
+            <%= listing.description %>
+          </p>
+
+          <a href="/listings/<%= listing._id %>" class="btn btn-primary">
+            View
+          </a>
+
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning">
+            Edit
+          </a>
+
+          <form 
+            action="/listings/<%= listing._id %>?_method=DELETE" 
+            method="POST"
+            style="display:inline;"
+          >
+            <button type="submit" class="btn btn-danger">
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+
+    <% } %>
+  </div>
 </body>
-
