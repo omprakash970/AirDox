@@ -26,38 +26,29 @@ main()
   });
 app.get('/', (req, res)=>{
     res.send("Server is running, don't worry about it");
-})
+});
 
-app.get("/listings",async (req, res)=>{
+app.get("/listings", async (req, res)=>{
   const allListings = await Listing.find({});
   res.render("listings/index.ejs", {allListings});
 
-})
-app.get("/listings/:id", async(req, res)=>{
-  let {id}= req.params; 
-  const listing = await Listing.findById(id); 
-  res.render("listings/show.ejs", {listing});
-})
+});
 
 app.get("/listings/new", (req, res)=>{
   res.render("listings/new.ejs");
 });
 
+app.get("/listings/:id", async (req, res)=>{
+  let {id}= req.params;
+  const listing = await Listing.findById(id);
+  res.render("listings/show.ejs", {listing});
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.post("/listings", async (req, res)=>{
+  let listing = req.body.listing;
+  await Listing.create(listing);
+  res.redirect("/listings");
+});
 
 app.get('/api/health', (req, res) => {
   res.json({
