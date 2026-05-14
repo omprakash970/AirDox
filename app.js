@@ -2,9 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Listing from './models/listing.js';
+import ejs from 'ejs';
+
 
 const app = express();
 
+app.set('view engine', 'ejs');
 dotenv.config();
 
 async function main() {
@@ -18,24 +21,19 @@ main()
   .catch((err) => {
     console.log(err);
   });
+app.get('/', (req, res)=>{
+    res.send("Server is running, don't worry about it");
+})
 
-app.get('/testListing', async (req, res) => {
+app.get("/listings",async (req, res)=>{
+  const allListings = await Listing.find({});
+  res.render("listings/index.ejs", {allListings});
 
-  let sampleListing = new Listing({
-    title: 'Oppie Villa ',
-    description: 'A will with sluts and bitches',
-    image:'funck you',
-    price: 20000,
-    location: 'Texas',
-    country: 'USA'
-  });
+})
 
-  await sampleListing.save();
 
-  res.send('Saved Successfully');
-});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
-  console.log(`Test the listing at http://localhost:${process.env.PORT}/testListing`);
+  console.log(`Test the listing at http://localhost:${process.env.PORT}/`);
 });

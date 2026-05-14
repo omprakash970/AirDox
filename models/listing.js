@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-let listingSchema = new mongoose.Schema({
+const listingSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -11,10 +11,11 @@ let listingSchema = new mongoose.Schema({
     required: true
   },
 
- image: {
-  type: String,
-  default: 'https://tinyurl.com/5djccv34'
-},
+  image: {
+    filename: String,
+    url: String
+    
+  },
 
   price: {
     type: Number,
@@ -32,6 +33,6 @@ let listingSchema = new mongoose.Schema({
   }
 });
 
-const Listing = mongoose.model('Listing', listingSchema);
+const Listing = mongoose.model("Listing", listingSchema);
 
 export default Listing;
