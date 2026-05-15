@@ -1,12 +1,76 @@
+<% layout('layouts/boilerplate') %>
 
-<%layout('layouts/boilerplate')%>
-<body>
-  <h3>Listing Details</h3>
-  <ul>
-    <li><strong>Title:</strong> <%= listing.title %></li>
-    <li><strong>Description:</strong> <%= listing.description %></li>
-    <li><strong>Price:</strong> $<%= listing.price %></li>
-    <li><strong>Location:</strong> <%= listing.location %></li>
-    <li><strong>Country:</strong> <%= listing.country %></li>
-  </ul>
-</body>
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-8 col-lg-6">
+
+      <div class="card shadow-lg border-0 rounded">
+
+        <img
+          src="<%= listing.image.url %>"
+          class="card-img-top"
+          alt="Listing image"
+          style="height: 350px; object-fit: cover;"
+        >
+
+        <div class="card-body">
+
+          <h2 class="card-title mb-4 text-center fw-bold">
+            <%= listing.title %>
+          </h2>
+
+          <p class="card-text">
+            <strong>Description:</strong><br>
+            <%= listing.description %>
+          </p>
+
+          <ul class="list-group list-group-flush mt-4">
+
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Price</strong>
+              <span>₹ <%= listing.price %></span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Location</strong>
+              <span><%= listing.location %></span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Country</strong>
+              <span><%= listing.country %></span>
+            </li>
+
+          </ul>
+
+          <div class="d-flex justify-content-between mt-4">
+
+            <a
+              href="/listings/<%= listing._id %>/edit"
+              class="btn btn-warning px-4"
+            >
+              Edit
+            </a>
+
+            <form
+              action="/listings/<%= listing._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-danger px-4">
+                Delete
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

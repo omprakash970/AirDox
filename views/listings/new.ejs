@@ -1,27 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AirDox</title>
-</head>
+<% layout('layouts/boilerplate') %>
 <body>
-  <form action="/listings" method="POST">
-    <input type="text" name="listing[title]" placeholder="Title of the listing" >
-    <br>
-    <br>
-    <textarea name="listing[description]"  placeholder="Enter description" ></textarea>
-    <br>
-    <input type="text" name="listing[image]" placeholder="Enter image URL" >
-    <br>
-    <input name="listing[price]" placeholder="Enter price"  id="" type="number" >
-    <br>
-    <input type="text" name="listing[country]" placeholder="Enter country" >
-    <br>
-    <input type="text" name="listing[location]" placeholder="Enter location" >
-    <br>
-    <button type="submit">Create Listing</button>
-  </form>
-  
+
+  <div class="form-container">
+
+    <h1>Create Listing</h1>
+
+    <form action="/listings" method="POST">
+
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="listing[title]"
+          placeholder="Title of the listing" required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="listing[description]"
+          rows="4"
+          placeholder="Enter description"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image"
+          name="listing[image]"
+          placeholder="Enter image URL"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          name="listing[price]"
+          placeholder="Enter price"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input
+          type="text"
+          class="form-control"
+          id="country"
+          name="listing[country]"
+          placeholder="Enter country"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input
+          type="text"
+          class="form-control"
+          id="location"
+          name="listing[location]"
+          placeholder="Enter location"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Create Listing
+      </button>
+
+    </form>
+
+  </div>
+
 </body>
-</html>
