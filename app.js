@@ -116,6 +116,9 @@ app.use((err, req, res, next)=>{
   let{statusCode, message}=err; 
   res.statusCode(statusCode).send(message);
 })
+app.all('*', (req, res, next)=>{
+  next(new ExpressError(404, 'Page Not Found'));
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
