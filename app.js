@@ -5,7 +5,8 @@ import Listing from './models/listing.js';
 import ejsMate from 'ejs-mate';
 import methodOverride from 'method-override';
 import path from 'path';
-
+import wrapAsync from './utils/wrapAsync.js'; 
+import ExpressError from './utils/ExpressError.js';
 const app = express();
 
 // Load environment variables
@@ -56,7 +57,7 @@ app.get('/listings/:id', async (req, res) => {
 });
 
 // CREATE Route
-app.post('/listings', async (req, res) => {
+app.post('/listings', wrapAsync(async (req, res) => {
   try{
       const listing = req.body.listing;
   await Listing.create(listing);
@@ -65,7 +66,7 @@ app.post('/listings', async (req, res) => {
     next(err); 
   }
 
-});
+}));
 
 // EDIT Route
 app.get('/listings/:id/edit', async (req, res) => {
@@ -112,7 +113,8 @@ app.get('/api/health', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.use((err, req, res, next)=>{
-  res.send('❌ Oops! Something went wrong. Please try again later.');
+  let{statusCode, message}=err; 
+  res.statusCode(statusCode).send(message);
 })
 
 app.listen(PORT, () => {
